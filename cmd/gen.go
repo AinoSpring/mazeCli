@@ -5,10 +5,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
-	"image/color"
 	"mazeCli/maze"
 	"time"
+
+	"github.com/spf13/cobra"
 )
 
 // genCmd represents the gen command
@@ -25,19 +25,10 @@ to the specified output file.`,
 		fmt.Println("Generating maze...")
 
 		var mazeObj = maze.NewMaze(maze.NewVector(2).Fill(float64(size)), seed)
+
 		var display = maze.DisplayMaze(mazeObj)
-		display.SetPixel(mazeObj.Start, color.RGBA{
-			R: 255,
-			G: 0,
-			B: 0,
-			A: 255,
-		})
-		display.SetPixel(mazeObj.Finish, color.RGBA{
-			R: 0,
-			G: 255,
-			B: 0,
-			A: 255,
-		})
+		display.SetValue(mazeObj.Start, 'S')
+		display.SetValue(mazeObj.Finish, 'F')
 		display.Save(out)
 
 		fmt.Printf("Saved maze at %v.\n", out)
@@ -60,6 +51,6 @@ func init() {
 
 	genCmd.Flags().IntP("size", "z", 10, "Sets the size of the maze.")
 	genCmd.Flags().Int64P("seed", "s", int64(time.Now().Nanosecond()), "Sets the seed of the maze.")
-	genCmd.Flags().StringP("out", "o", "maze.png", "Sets the output file.")
+	genCmd.Flags().StringP("out", "o", "maze.txt", "Sets the output file.")
 
 }

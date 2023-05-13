@@ -1,23 +1,29 @@
 package maze
 
 import (
-	"image"
-	"image/color"
-	"image/png"
 	"log"
 	"os"
 )
 
 type Display struct {
-	image *image.NRGBA
-	size  Vector
+	maze [][]byte
+	size Vector
 }
 
 func DisplayMaze(maze Maze) (display Display) {
 	display = NewDisplay(maze.Size)
 	for x := 0; x < int(maze.Size[0]); x++ {
 		for y := 0; y < int(maze.Size[0]); y++ {
-			display.SetPixel(Vector{float64(x), float64(y)}, color.Gray{Y: uint8(maze.Get(Vector{float64(x), float64(y)}) * 255)})
+			toSet := -1
+			switch maze.Get(Vector{float64(x), float64(y)}) {
+			case 0:
+				toSet = '.'
+				break
+			case 1:
+				toSet = '#'
+				break
+			}
+			display.SetValue(Vector{float64(x), float64(y)}, byte(toSet))
 		}
 	}
 	return
@@ -25,15 +31,13 @@ func DisplayMaze(maze Maze) (display Display) {
 
 func NewDisplay(size Vector) (display Display) {
 	display.size = size
-	display.image = image.NewNRGBA(image.Rect(0, 0, int(display.size[0]), int(display.size[1])))
+	display.maze = make([][]byte, int(size[0]))
+	for i := 0; i < int(size[0]); i++ {
+		display.maze[i] = make([]byte, int(size[1]))
+	}
 	for y := 0; y < int(display.size[0]); y++ {
 		for x := 0; x < int(display.size[1]); x++ {
-			display.image.Set(x, y, color.NRGBA{
-				R: 0,
-				G: 0,
-				B: 255,
-				A: 255,
-			})
+			display.maze[y][x] = '#'
 		}
 	}
 	return
@@ -45,12 +49,9 @@ func (display *Display) Save(path string) {
 		log.Fatal(err)
 	}
 
-	if err := png.Encode(f, display.image); err != nil {
-		err := f.Close()
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Fatal(err)
+	for y := 0; y < int(display.size[0]); y++ {
+		f.Write(display.maze[y])
+		f.WriteString("\n")
 	}
 
 	if err := f.Close(); err != nil {
@@ -58,12 +59,12 @@ func (display *Display) Save(path string) {
 	}
 }
 
-func (display *Display) SetPixel(position Vector, color color.Color) {
-	display.image.Set(int(position[0]), int(position[1]), color)
+func (display *Display) SetValue(position Vector, value byte) {
+	display.maze[int(position[0])][int(position[1])] = value
 }
 
-func (display *Display) Matrix(matrix Matrix, color color.Color) {
+func (display *Display) Matrix(matrix Matrix, value byte) {
 	for _, vector := range matrix {
-		display.SetPixel(vector, color)
+		display.SetValue(vector, value)
 	}
 }
