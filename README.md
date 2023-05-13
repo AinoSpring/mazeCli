@@ -1,33 +1,33 @@
 # mazeCli
 A cli for generating maze image files.
 
-A maze generator which works by first generating
-a random path through the plane and 
-then adds different branches to the maze
-which themselves also have branches.
-It saves the maze as a png image.
+A maze generator which works by first generating<br />
+a random path through the plane and <br />
+then adds different branches to the maze<br />
+which themselves also have branches.<br />
+It saves the maze as a png image.<br />
 
-Usage:
-  mazeCli [command]
-
-Available Commands:
-  completion  Generate the autocompletion script for the specified shell
-  gen         Generates the maze and outputs it into a png file.
-  help        Help about any command
-
-Flags:
-  -h, --help   help for mazeCli
-  
+Usage:<br />
+&nbsp;&nbsp;mazeCli [command]<br />
+<br />
+Available Commands:<br />
+&nbsp;&nbsp;completion - Generate the autocompletion script for the specified shell<br />
+&nbsp;&nbsp;gen -        Generates the maze and outputs it into a png file.<br />
+&nbsp;&nbsp;help -       Help about any command<br />
+<br />
+Flags:<br />
+&nbsp;&nbsp;-h, --help -  help for mazeCli<br />
+&nbsp;&nbsp;<br />
  # Generate a maze
- 
-It generates the maze for the given arguments and saves it
-to the specified output file.
-
-Usage:
-  mazeCli gen [flags]
-
-Flags:
-  -h, --help         help for gen
-  -o, --out string   Sets the output file. (default "maze.png")
-  -s, --seed int     Sets the seed of the maze. (default time in ns)
-  -z, --size int     Sets the size of the maze. (default 10)
+ <br />
+It generates the maze for the given arguments and saves it<br />
+to the specified output file.<br />
+<br />
+Usage:<br />
+&nbsp;&nbsp;mazeCli gen [flags]<br />
+<br />
+Flags:<br />
+&nbsp;&nbsp;-h, --help -        help for gen<br />
+&nbsp;&nbsp;-o, --out string -  Sets the output file. (default "maze.png")<br />
+&nbsp;&nbsp;-s, --seed int -    Sets the seed of the maze. (default time in ns)<br />
+&nbsp;&nbsp;-z, --size int -    Sets the size of the maze. (default 10)<br />
