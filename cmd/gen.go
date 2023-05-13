@@ -14,7 +14,7 @@ import (
 // genCmd represents the gen command
 var genCmd = &cobra.Command{
 	Use:   "gen",
-	Short: "Generates the maze and outputs it into a png file.",
+	Short: "Generates the maze and outputs it into a txt file.",
 	Long: `It generates the maze for the given arguments and saves it
 to the specified output file.`,
 	Run: func(cmd *cobra.Command, args []string) {

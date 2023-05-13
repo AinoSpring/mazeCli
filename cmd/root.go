@@ -17,7 +17,7 @@ var rootCmd = &cobra.Command{
 a random path through the plane and 
 then adds different branches to the maze
 which themselves also have branches.
-It saves the maze as a png image.`,
+It saves the maze as a txt file.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
